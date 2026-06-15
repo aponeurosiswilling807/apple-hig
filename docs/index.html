@@ -28,6 +28,11 @@
     font-size:17px;font-weight:600;border:1px solid transparent;cursor:pointer}
   .btn.primary{background:var(--accent);color:#fff}
   .btn.ghost{background:transparent;color:var(--text);border-color:var(--border)}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.ghost:hover{background:var(--bg2);border-color:var(--text2)}
+  .btn:active{transform:scale(.98)}
+  .btn .btn-chev{font-size:15px;line-height:1}
+  .demo-cta{text-align:center;margin-top:18px}
   code,kbd,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 
   /* nav */
@@ -146,7 +151,10 @@
       <div class="ba-line"><div class="ba-grip">⟺</div></div>
       <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
     </div>
-    <figcaption>Drag the handle — the same desktop app, before and after the plugin redesigned it to Apple's macOS HIG. &nbsp;<a href="prototype.html">Open the interactive redesign →</a></figcaption>
+    <figcaption>Drag the handle to compare — the same desktop app, before and after the plugin redesigned it to Apple's macOS HIG.</figcaption>
+    <div class="demo-cta">
+      <a class="btn ghost" href="prototype.html" target="_blank" rel="noopener">Open the interactive redesign <span class="btn-chev" aria-hidden="true">↗</span></a>
+    </div>
   </figure>
 </div>
 
