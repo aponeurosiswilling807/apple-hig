@@ -174,6 +174,46 @@ settings screen in SwiftUI" or "review this view for HIG compliance." Or drive i
 /hig-tokens swiftui
 ```
 
+## Use it in other AI coding tools
+
+The full plugin experience — the auto-activating skill, the `design-reviewer` subagent, and the
+`/hig-*` commands — is specific to Claude Code. Other AI coding tools can still use the **guidelines**
+as project rules plus on-disk context, in two steps.
+
+**1. Put the guidelines in your project** so the assistant can read the exact, sourced values. Clone
+this repo into your project, add it as a submodule, or copy `skills/apple-hig/guidelines/`:
+
+```text
+git clone https://github.com/elevatormusic/apple-hig vendor/apple-hig
+```
+
+**2. Add the rules file for your tool.** Copy [`integrations/apple-hig.md`](integrations/apple-hig.md)
+— a self-contained HIG ruleset that also points at the guidelines folder — to the location your tool
+reads:
+
+| Tool | Where to put it |
+|---|---|
+| **AGENTS.md-compatible** — OpenAI Codex, Gemini CLI, Aider, Zed, Amp, goose, opencode, Jules, Factory, Warp, Kilo Code, RooCode, and more | `AGENTS.md` at your project root |
+| **Cursor** | `.cursor/rules/apple-hig.mdc` (prepend frontmatter `--- description: Apple HIG; alwaysApply: true ---`), or legacy `.cursorrules` |
+| **Windsurf** | `.windsurf/rules/apple-hig.md`, or legacy `.windsurfrules` |
+| **GitHub Copilot** | `.github/copilot-instructions.md` |
+| **Cline** | `.clinerules/apple-hig.md` (or a single `.clinerules` file) |
+| **Roo Code** | `.roo/rules/apple-hig.md` (or `.roorules`) |
+| **Aider** | `CONVENTIONS.md`, then `read: CONVENTIONS.md` in `.aider.conf.yml` (or `aider --read CONVENTIONS.md`) |
+| **Gemini CLI** | `GEMINI.md` (or point `contextFileName` at `AGENTS.md` in `.gemini/settings.json`) |
+| **JetBrains AI Assistant / Junie** | `.aiassistant/rules/apple-hig.md` or `.junie/guidelines.md` |
+| **Amazon Q Developer** | `.amazonq/rules/apple-hig.md` |
+| **Continue** | add it under `.continue/rules/` |
+| **Claude Code** | use the native plugin above — you don't need this |
+
+**AGENTS.md** is the closest thing to a cross-tool standard — many of the tools above read it
+natively, so one `AGENTS.md` often covers several at once. These conventions change quickly; check
+your tool's docs and <https://agents.md> if a path has moved.
+
+Even without the guidelines folder, `integrations/apple-hig.md` carries the core rules and key tokens
+inline, so it works on its own; with the folder present, the assistant can pull exact, sourced values
+per topic.
+
 ## How it works
 
 `skills/apple-hig/SKILL.md` is a router, not the content. On each task it loads
