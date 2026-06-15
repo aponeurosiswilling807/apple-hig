@@ -32,7 +32,12 @@
   .btn.ghost:hover{background:var(--bg2);border-color:var(--text2)}
   .btn:active{transform:scale(.98)}
   .btn .btn-chev{font-size:15px;line-height:1}
-  .demo-cta{text-align:center;margin-top:18px}
+  .demo-cta{text-align:center;margin-top:24px}
+  .demo-eyebrow{text-align:center;color:var(--accent);font-weight:600;font-size:15px;letter-spacing:.2px}
+  .demo-stage{position:relative;max-width:900px;margin:44px auto 0;border-radius:18px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);background:#0c0c0d}
+  .demo-stage::before{content:"";position:absolute;inset:0;border-radius:18px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);pointer-events:none;z-index:1}
+  .demo-iframe{display:block;width:100%;height:800px;border:0;background:#0c0c0d}
+  @media(max-width:640px){.demo-iframe{height:700px}}
   code,kbd,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 
   /* nav */
@@ -119,6 +124,7 @@
 <header><div class="wrap"><nav>
   <span class="logo"><span class="mk">a</span> apple-hig</span>
   <span class="sp"></span>
+  <a class="lnk" href="#demo">Demo</a>
   <a class="lnk" href="#features">Features</a>
   <a class="lnk" href="#tools">Every tool</a>
   <a class="lnk" href="#install">Install</a>
@@ -152,11 +158,22 @@
       <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
     </div>
     <figcaption>Drag the handle to compare — the same desktop app, before and after the plugin redesigned it to Apple's macOS HIG.</figcaption>
-    <div class="demo-cta">
-      <a class="btn ghost" href="prototype.html" target="_blank" rel="noopener">Open the interactive redesign <span class="btn-chev" aria-hidden="true">↗</span></a>
-    </div>
   </figure>
 </div>
+
+<section class="band" id="demo">
+  <div class="wrap">
+    <div class="demo-eyebrow">Live, not a screenshot</div>
+    <h2>Play with the redesign</h2>
+    <p class="sub">The real macOS-HIG rebuild of the app, embedded and running right here. Drop a calibration on the right ear, open Advanced, drag the output trim — then grab the full thing.</p>
+    <div class="demo-stage">
+      <iframe class="demo-iframe" src="prototype.html" loading="lazy" title="EARS Bridge redesigned to Apple's macOS Human Interface Guidelines — interactive prototype"></iframe>
+    </div>
+    <div class="demo-cta">
+      <a class="btn primary" href="prototype.html" target="_blank" rel="noopener">Open full screen <span class="btn-chev" aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>
 
 <section class="band alt" id="features">
   <div class="wrap">
