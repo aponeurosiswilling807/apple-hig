@@ -97,3 +97,10 @@ by severity (🔴 high → 🟠 medium → 🟡 low). For each:
 End with **Looks good:** a short list of things the code already does right (so the review is
 balanced). Be precise and avoid false positives — if a value is fine (e.g. a decorative element that
 doesn't need a 44pt target), don't flag it. Prefer system components and semantic values in every fix.
+
+Finally, emit one machine-readable line as the **last line** of your report, so tools can parse the
+result deterministically:
+
+`HIG-VERDICT: pass|fail (high=<n> medium=<n> low=<n>)`
+
+Use **pass** only when `high=0` (no 🔴 high-severity violations); otherwise **fail**.
