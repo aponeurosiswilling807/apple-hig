@@ -1,0 +1,33 @@
+{
+  "name": "apple-hig",
+  "displayName": "Apple HIG",
+  "version": "1.0.0",
+  "description": "Automatically design and review UIs to Apple's Human Interface Guidelines across iOS, iPadOS, macOS, watchOS, tvOS, and visionOS. Ships a complete on-disk guideline reference so it never fetches Apple at runtime; the router skill loads only the files relevant to the current task.",
+  "author": {
+    "name": "Shayan B",
+    "url": "https://github.com/elevatormusic"
+  },
+  "homepage": "https://github.com/elevatormusic/apple-hig",
+  "repository": "https://github.com/elevatormusic/apple-hig",
+  "license": "MIT",
+  "keywords": [
+    "apple",
+    "hig",
+    "human-interface-guidelines",
+    "ios",
+    "ipados",
+    "macos",
+    "watchos",
+    "tvos",
+    "visionos",
+    "ui",
+    "ux",
+    "design",
+    "design-review",
+    "design-system",
+    "design-tokens",
+    "liquid-glass",
+    "swiftui",
+    "accessibility"
+  ]
+}

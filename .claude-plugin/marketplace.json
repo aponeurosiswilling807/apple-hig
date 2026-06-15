@@ -1,0 +1,30 @@
+{
+  "name": "apple-hig",
+  "owner": {
+    "name": "Shayan B",
+    "url": "https://github.com/elevatormusic"
+  },
+  "metadata": {
+    "description": "Single-plugin marketplace for apple-hig — design and review UIs to Apple's Human Interface Guidelines.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "apple-hig",
+      "source": "./",
+      "description": "Automatically design and review UIs to Apple's Human Interface Guidelines (iOS, iPadOS, macOS, watchOS, tvOS, visionOS). Complete on-disk reference, a HIG design-reviewer subagent, and /hig-review, /hig-scaffold, /hig-tokens commands.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Shayan B"
+      },
+      "keywords": [
+        "apple",
+        "human-interface-guidelines",
+        "ios",
+        "macos",
+        "design",
+        "accessibility"
+      ]
+    }
+  ]
+}

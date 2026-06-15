@@ -1,0 +1,110 @@
+---
+title: Design Tokens (consolidated)
+source_url: https://developer.apple.com/design/human-interface-guidelines
+platforms: [ios, ipados, macos, watchos, tvos, visionos]
+value_type: exact-spec
+last_verified: 2026-06-14
+---
+
+# Design Tokens (consolidated, machine-readable)
+
+> 🔢 **exact-spec / version-dependent.** Single source for the `/hig-tokens` command. Values are
+> the **iOS** reference set unless noted; re-verify on Apple. In code, prefer **semantic** names
+> over raw values. Detailed guidance lives in [[color]], [[typography]], [[layout]].
+
+## Colors — system (light → dark, hex)
+
+| token | light | dark |
+|---|---|---|
+| blue | #007AFF | #0A84FF |
+| cyan | #32ADE6 | #64D2FF |
+| green | #34C759 | #30D158 |
+| indigo | #5856D6 | #5E5CE6 |
+| mint | #00C7BE | #63E6E2 |
+| orange | #FF9500 | #FF9F0A |
+| pink | #FF2D55 | #FF375F |
+| purple | #AF52DE | #BF5AF2 |
+| red | #FF3B30 | #FF453A |
+| teal | #30B0C7 | #40CBE0 |
+| yellow | #FFCC00 | #FFD60A |
+| brown | #A2845E | #AC8E68 |
+| gray | #8E8E93 | #8E8E93 |
+| gray2 | #AEAEB2 | #636366 |
+| gray3 | #C7C7CC | #48484A |
+| gray4 | #D1D1D6 | #3A3A3C |
+| gray5 | #E5E5EA | #2C2C2E |
+| gray6 | #F2F2F7 | #1C1C1E |
+
+## Colors — semantic (light → dark)
+
+| token | light | dark |
+|---|---|---|
+| label | #000000 | #FFFFFF |
+| secondaryLabel | rgba(60,60,67,0.6) | rgba(235,235,245,0.6) |
+| tertiaryLabel | rgba(60,60,67,0.3) | rgba(235,235,245,0.3) |
+| quaternaryLabel | rgba(60,60,67,0.18) | rgba(235,235,245,0.16) |
+| placeholderText | rgba(60,60,67,0.3) | rgba(235,235,245,0.3) |
+| separator | rgba(60,60,67,0.29) | rgba(84,84,88,0.6) |
+| opaqueSeparator | #C6C6C8 | #38383A |
+| link | #007AFF | #0984FF |
+| systemBackground | #FFFFFF | #000000 |
+| secondarySystemBackground | #F2F2F7 | #1C1C1E |
+| tertiarySystemBackground | #FFFFFF | #2C2C2E |
+| systemGroupedBackground | #F2F2F7 | #000000 |
+| secondarySystemGroupedBackground | #FFFFFF | #1C1C1E |
+| tertiarySystemGroupedBackground | #F2F2F7 | #2C2C2E |
+
+Default tint/accent = `blue`.
+
+## Type ramp — iOS Dynamic Type (default "Large")
+
+| style | weight | size_pt | leading_pt |
+|---|---|---|---|
+| largeTitle | Regular/Bold | 34 | 41 |
+| title1 | Regular | 28 | 34 |
+| title2 | Regular | 22 | 28 |
+| title3 | Regular | 20 | 25 |
+| headline | Semibold | 17 | 22 |
+| body | Regular | 17 | 22 |
+| callout | Regular | 16 | 21 |
+| subheadline | Regular | 15 | 20 |
+| footnote | Regular | 13 | 18 |
+| caption1 | Regular | 12 | 16 |
+| caption2 | Regular | 11 | 13 |
+
+Body tracking ≈ −0.43 pt. SF Pro Text ≤19 pt, SF Pro Display ≥20 pt. Web/Android substitute:
+system stack or **Inter** (do not ship SF — see [[licensing-and-assets]]).
+
+## Spacing scale (pt)
+
+`4, 8, 12, 16, 20, 24, 32, 44`
+- standard gap **8**, section gap **16–20**, screen margin **16** (20 on wide iPhones).
+
+## Corner radii (pt)
+
+`small 8 · medium 12 (button/card) · large 16 · capsule (large/prominent controls)` — keep
+concentric with the container and display. See [[layout]].
+
+> **Note:** Apple's HIG does not publish a fixed numeric corner-radius token scale. The 8/12/16
+> values above are a **recommended community convention**, not an Apple-published exact spec. What
+> Apple emphasizes is **concentricity** (a nested element's radius = parent radius minus the gap)
+> and using a **capsule** for prominent controls in the 26 / Liquid Glass design.
+
+## Sizing constants (pt)
+
+| token | value | note |
+|---|---|---|
+| minTouchTarget | 44 | iOS/iPadOS/watchOS design target (default control size); absolute min 28×28 |
+| minTouchTarget.visionOS | 60 | eye-tracking design target (default); absolute min 28×28 |
+| listRowMin | 44 | |
+| navLargeTitle | 34 | |
+| navInlineTitle | 17 | Semibold |
+| tabBarLabel | 10–11 | |
+| sidebarWidth | ~320 | iPad |
+| macMenuBar | 24 | 37 with camera housing |
+
+## Contrast minimums
+
+`bodyText 4.5:1 · largeText 3:1 (≥18pt reg / ≥14pt bold) · placeholder 4.5:1` — never color alone.
+
+See also: [[color]], [[typography]], [[layout]], [[accessibility]].

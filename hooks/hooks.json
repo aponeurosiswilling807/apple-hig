@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo [apple-hig] Tip: run /hig-review to audit this UI against Apple's Human Interface Guidelines, or let the apple-hig skill guide the design."
+          }
+        ]
+      }
+    ]
+  }
+}

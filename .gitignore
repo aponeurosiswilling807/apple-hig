@@ -1,0 +1,9 @@
+# Build / verification artifacts — NOT part of the published plugin
+.verification/
+.playwright-mcp/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
