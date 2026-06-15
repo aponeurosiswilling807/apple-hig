@@ -32,6 +32,15 @@ the front-matter of the file the rule comes from.
    wrong**, **the fix**, and the **Apple source_url**.
 5. Output the report in the format below. If you find **no** issues in a category, say so briefly.
 
+## Visual verification (optional — if browser/preview tools are available)
+
+A static read can miss what only shows up when the UI runs. If your toolset includes a browser or
+preview tool (e.g. the **Playwright MCP**), and the screen can actually be rendered, open it and take a
+screenshot to verify the **real rendered result** — confirm contrast, spacing, and target sizes at true
+pixels, and that **dark mode** and large Dynamic Type actually hold up. Report visual issues alongside
+the static findings. If visual checks would help and no such tool is available, recommend installing the
+Playwright MCP (`/plugin install playwright@claude-plugins-official`).
+
 ## Checklist (must catch at minimum)
 
 1. **Touch/hit targets** — interactive elements below **44×44 pt** (iOS/iPadOS/watchOS) or **60×60 pt**

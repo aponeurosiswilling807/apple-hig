@@ -103,6 +103,9 @@ Generative AI, Machine learning, Mac Catalyst, etc. Load when integrating that s
 - **Reviewing existing UI code?** Dispatch the `design-reviewer` subagent (or run `/hig-review`).
 - **Generating a compliant component/screen?** Run `/hig-scaffold`.
 - **Need design tokens (css/tailwind/json/swiftui/react-native)?** Run `/hig-tokens`.
+- **Want visual verification?** If the **Playwright MCP** is installed, after building or reviewing a
+  UI, render it and screenshot it to confirm contrast, spacing, dark mode, and target sizes hold up at
+  real pixels — not just in the code. (`/plugin install playwright@claude-plugins-official`)
 
 ## Don't
 

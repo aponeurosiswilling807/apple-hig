@@ -1,12 +1,11 @@
 {
   "hooks": {
-    "PostToolUse": [
+    "SessionStart": [
       {
-        "matcher": "Write|Edit|MultiEdit",
         "hooks": [
           {
             "type": "command",
-            "command": "echo apple-hig tip - run /hig-review to check this UI against the Apple Human Interface Guidelines, or let the apple-hig skill guide the design"
+            "command": "echo apple-hig ready - the skill guides Apple HIG design and the /hig-review command audits a file"
           }
         ]
       }

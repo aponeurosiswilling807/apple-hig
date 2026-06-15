@@ -20,5 +20,9 @@ snippet), and the Apple **Source** URL, grouped high → medium → low, plus a 
 
 Relay the subagent's report. Do not modify files unless I ask you to apply the fixes.
 
+If a Playwright/preview/browser MCP is available and the UI can actually be run, also render it and
+verify visually (screenshot; check rendered contrast, spacing, dark mode, and target sizes) and include
+those findings. Install it with `/plugin install playwright@claude-plugins-official` for visual checks.
+
 If the `design-reviewer` subagent isn't available (e.g. the plugin isn't installed), fall back to
 invoking the **apple-hig** skill and performing the same audit yourself using its guidelines.

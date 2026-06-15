@@ -6,7 +6,7 @@ watchOS, tvOS, or visionOS — for whatever is being built.
 
 ![Before and after apple-hig: a real desktop app (EARS Bridge). The "before" has dim low-contrast labels, a cramped layout, an alarming raw error, and empty unreadable meters. The "after", redesigned to Apple's macOS HIG, has semantic colors at 4.5:1+ contrast, a clear grouped hierarchy, a calm plain-language status banner, readable labeled level meters, and an accent capsule action.](docs/before-after.png)
 
-**Website:** <https://elevatormusic.github.io/apple-hig/>  ·  *(this site was itself designed with the plugin)*
+**Website:** <https://elevatormusic.github.io/apple-hig/>  ·  **Try the "after" live:** [interactive redesign](https://elevatormusic.github.io/apple-hig/prototype.html)  ·  *(both designed with the plugin)*
 
 ## About
 
@@ -168,8 +168,28 @@ to the task. (Token counts are estimates.)
 
 ## Usage
 
-Just work on an Apple-platform UI and the skill activates on its own — for example, "build an iPhone
-settings screen in SwiftUI" or "review this view for HIG compliance." Or drive it explicitly:
+Just work on an Apple-platform UI and the skill activates on its own — no need to name it. It also
+works for any app or website you want to feel Apple-clean. Some prompts that trigger it:
+
+**Build / scaffold**
+- "Design an iPhone **settings screen** in SwiftUI, HIG-compliant."
+- "Build a **visionOS** detail view with an ornament toolbar."
+- "Lay out a **macOS** preferences window with a sidebar and proper control sizes."
+- "Make this React form follow Apple's spacing, type ramp, and dark mode."
+
+**Review / fix**
+- "**Review** `SettingsView.swift` for HIG compliance."
+- "Audit this component's **touch targets, contrast, and dark-mode** coverage."
+- "Why does this screen feel off vs. a native iOS app? Fix it."
+
+**Redesign / improve**
+- "**Redesign** this screen to Apple's macOS HIG." (paste your UI — like the EARS Bridge example above)
+- "Tidy the hierarchy and error states on this window."
+
+**Tokens**
+- "Give me the HIG **color + type tokens** as Tailwind." / "…as a SwiftUI `Color` extension."
+
+Or drive the commands directly:
 
 ```text
 /hig-scaffold ios settings screen swiftui
@@ -177,6 +197,18 @@ settings screen in SwiftUI" or "review this view for HIG compliance." Or drive i
 /hig-tokens css
 /hig-tokens swiftui
 ```
+
+### See it, don't just read it (optional)
+
+Install the **Playwright MCP** alongside apple-hig and the reviewer can *render* your UI and verify it
+visually — real contrast, spacing, target sizes, and dark mode — not just read the code:
+
+```text
+/plugin install playwright@claude-plugins-official
+```
+
+Then a prompt like "review this screen and **render it to check** contrast and dark mode" will screenshot
+the running UI and report what it sees. (This is exactly how the before/after above was produced.)
 
 ## Use it in other AI coding tools
 
