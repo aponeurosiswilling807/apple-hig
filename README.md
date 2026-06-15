@@ -136,6 +136,32 @@ claude plugin uninstall apple-hig        # remove it
 claude plugin marketplace remove apple-hig
 ```
 
+## What gets installed
+
+`claude plugin details apple-hig` reports the component inventory and its projected token cost:
+
+```text
+Apple HIG (apple-hig) 1.0.0
+Component inventory
+  Skills (4)  apple-hig, hig-review, hig-scaffold, hig-tokens
+  Agents (1)  design-reviewer
+  Hooks  (1)  PostToolUse  (harness-only — no model context cost)
+  MCP servers (0) · LSP servers (0)
+
+Projected token cost
+  Always-on: ~434 tok added to every session
+  component        always-on  on-invoke
+  apple-hig             ~180      ~2.5k
+  design-reviewer       ~120      ~1.6k
+  hig-review             ~50       ~390
+  hig-scaffold           ~50       ~540
+  hig-tokens             ~40      ~1.2k
+```
+
+Only the small always-on descriptions sit in every session; the full guideline files load on demand
+when a skill or the reviewer actually fires, and the router pulls just the handful of files relevant
+to the task. (Token counts are estimates.)
+
 ## Usage
 
 Just work on an Apple-platform UI and the skill activates on its own — for example, "build an iPhone
