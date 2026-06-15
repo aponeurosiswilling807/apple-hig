@@ -1,0 +1,39 @@
+{
+  "name": "apple-hig",
+  "version": "1.0.0",
+  "description": "Install the Apple Human Interface Guidelines ruleset into your project for any AI coding tool (Cursor, Windsurf, Copilot, Cline, Aider, Gemini CLI, AGENTS.md, and more). Also a Claude Code plugin.",
+  "type": "module",
+  "bin": {
+    "apple-hig": "scripts/install-rules.mjs"
+  },
+  "files": [
+    "scripts/install-rules.mjs",
+    "integrations/apple-hig.md",
+    "skills/apple-hig/guidelines",
+    "skills/apple-hig/references"
+  ],
+  "scripts": {
+    "install-rules": "node scripts/install-rules.mjs"
+  },
+  "keywords": [
+    "apple",
+    "human-interface-guidelines",
+    "hig",
+    "ai-rules",
+    "agents-md",
+    "cursor",
+    "windsurf",
+    "copilot",
+    "design-system"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/elevatormusic/apple-hig",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elevatormusic/apple-hig.git"
+  },
+  "author": "Shayan B",
+  "engines": {
+    "node": ">=16.7.0"
+  }
+}

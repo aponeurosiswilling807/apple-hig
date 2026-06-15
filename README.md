@@ -4,6 +4,8 @@ A Claude Code plugin that makes Claude design and review user interfaces accordi
 Interface Guidelines (HIG), automatically choosing the correct platform scope — iOS, iPadOS, macOS,
 watchOS, tvOS, or visionOS — for whatever is being built.
 
+![Before and after apple-hig: the same iPhone sign-in screen — a 30 pt hardcoded-blue button, low-contrast gray text, and a single light appearance become a 44 pt accent-tinted capsule, semantic colors at 4.5:1+ contrast, an 8 pt grid, and light + dark.](docs/before-after.svg)
+
 ## About
 
 `apple-hig` gives Claude a complete, on-disk copy of Apple's design guidance, organized the way Apple
@@ -177,42 +179,49 @@ settings screen in SwiftUI" or "review this view for HIG compliance." Or drive i
 ## Use it in other AI coding tools
 
 The full plugin experience — the auto-activating skill, the `design-reviewer` subagent, and the
-`/hig-*` commands — is specific to Claude Code. Other AI coding tools can still use the **guidelines**
-as project rules plus on-disk context, in two steps.
+`/hig-*` commands — is specific to Claude Code. Every other tool can still use the **guidelines as
+project rules**, generated from a single canonical ruleset.
 
-**1. Put the guidelines in your project** so the assistant can read the exact, sourced values. Clone
-this repo into your project, add it as a submodule, or copy `skills/apple-hig/guidelines/`:
+### One command
+
+Run this in your project. It writes the correct rules file for your tool (right path, right
+frontmatter), derived from [`integrations/apple-hig.md`](integrations/apple-hig.md):
 
 ```text
-git clone https://github.com/elevatormusic/apple-hig vendor/apple-hig
+npx github:elevatormusic/apple-hig --tool cursor
+npx github:elevatormusic/apple-hig --tool agents,copilot,windsurf   # several at once
+npx github:elevatormusic/apple-hig --tool all --vendor             # all tools + copy the guideline files into ./apple-hig/
 ```
 
-**2. Add the rules file for your tool.** Copy [`integrations/apple-hig.md`](integrations/apple-hig.md)
-— a self-contained HIG ruleset that also points at the guidelines folder — to the location your tool
-reads:
+No Node? Clone the repo and run `node scripts/install-rules.mjs --tool <slug>` (`--list` shows every
+tool). `--vendor` copies the full 161-file guideline set into your project so the assistant can read
+exact, sourced specs; otherwise the rules file carries the core rules and key tokens inline.
 
-| Tool | Where to put it |
-|---|---|
-| **AGENTS.md-compatible** — OpenAI Codex, Gemini CLI, Aider, Zed, Amp, goose, opencode, Jules, Factory, Warp, Kilo Code, RooCode, and more | `AGENTS.md` at your project root |
-| **Cursor** | `.cursor/rules/apple-hig.mdc` (prepend frontmatter `--- description: Apple HIG; alwaysApply: true ---`), or legacy `.cursorrules` |
-| **Windsurf** | `.windsurf/rules/apple-hig.md`, or legacy `.windsurfrules` |
-| **GitHub Copilot** | `.github/copilot-instructions.md` |
-| **Cline** | `.clinerules/apple-hig.md` (or a single `.clinerules` file) |
-| **Roo Code** | `.roo/rules/apple-hig.md` (or `.roorules`) |
-| **Aider** | `CONVENTIONS.md`, then `read: CONVENTIONS.md` in `.aider.conf.yml` (or `aider --read CONVENTIONS.md`) |
-| **Gemini CLI** | `GEMINI.md` (or point `contextFileName` at `AGENTS.md` in `.gemini/settings.json`) |
-| **JetBrains AI Assistant / Junie** | `.aiassistant/rules/apple-hig.md` or `.junie/guidelines.md` |
-| **Amazon Q Developer** | `.amazonq/rules/apple-hig.md` |
-| **Continue** | add it under `.continue/rules/` |
-| **Claude Code** | use the native plugin above — you don't need this |
+Tool slugs: `agents` · `cursor` · `windsurf` · `copilot` · `cline` · `roo` · `aider` · `gemini` ·
+`amazonq` · `continue` · `junie` · `claude`.
 
-**AGENTS.md** is the closest thing to a cross-tool standard — many of the tools above read it
-natively, so one `AGENTS.md` often covers several at once. These conventions change quickly; check
-your tool's docs and <https://agents.md> if a path has moved.
+### Or add the rules file by hand
 
-Even without the guidelines folder, `integrations/apple-hig.md` carries the core rules and key tokens
-inline, so it works on its own; with the folder present, the assistant can pull exact, sourced values
-per topic.
+Copy `integrations/apple-hig.md` to the path your tool reads (prepend the frontmatter where noted):
+
+| Tool | File | Notes |
+|---|---|---|
+| **AGENTS.md standard** — OpenAI Codex, Zed, Gemini CLI, Aider*, Amp, goose, opencode, Jules, Factory, Warp, Kilo Code, RooCode, JetBrains Junie, GitHub Copilot coding agent, … | `AGENTS.md` (repo root) | Plain markdown, auto-discovered. One file covers many tools. |
+| **Cursor** | `.cursor/rules/apple-hig.mdc` | Frontmatter: `description`, `globs:`, `alwaysApply: true` |
+| **Windsurf** | `.windsurf/rules/apple-hig.md` | Frontmatter: `trigger: always_on` |
+| **GitHub Copilot** | `.github/copilot-instructions.md` | Repo-wide. Or path-scope via `.github/instructions/*.instructions.md` (`applyTo`) |
+| **Cline** | `.clinerules/apple-hig.md` | Plain markdown |
+| **Roo Code** | `.roo/rules/apple-hig.md` | Plain markdown |
+| **Aider** | `CONVENTIONS.md` | Not auto-loaded: add `read: CONVENTIONS.md` to `.aider.conf.yml` (or `aider --read CONVENTIONS.md`) |
+| **Gemini CLI** | `GEMINI.md` | Or point `contextFileName` at `AGENTS.md` in `.gemini/settings.json` |
+| **Amazon Q Developer** | `.amazonq/rules/apple-hig.md` | Plain markdown |
+| **Continue** | `.continue/rules/apple-hig.md` | Frontmatter: `name`, `description`, `alwaysApply: true` |
+| **JetBrains Junie / AI Assistant** | `.junie/guidelines.md` / `.aiassistant/rules/apple-hig.md` | Plain markdown |
+| **Claude Code** | `CLAUDE.md` | Fallback only — prefer the native plugin above |
+
+`* Aider` reads `AGENTS.md` only with the same `read:` opt-in. **AGENTS.md** is the closest cross-tool
+standard — one file covers most of the list. These conventions move fast; check your tool's docs and
+<https://agents.md> if a path has changed.
 
 ## How it works
 
