@@ -1,7 +1,7 @@
 ---
 description: Audit the current file/selection (or a path you pass) against Apple's Human Interface Guidelines and report violations with rule, Apple source, and a concrete fix.
 argument-hint: "[file path or glob — defaults to the active file/selection]"
-allowed-tools: Read, Grep, Glob, Task
+allowed-tools: Read, Grep, Glob, Task, Bash
 ---
 
 Review UI code for Apple Human Interface Guidelines compliance.
@@ -26,3 +26,19 @@ those findings. Install it with `/plugin install playwright@claude-plugins-offic
 
 If the `design-reviewer` subagent isn't available (e.g. the plugin isn't installed), fall back to
 invoking the **apple-hig** skill and performing the same audit yourself using its guidelines.
+
+## Staged mode (`--staged`) — used by the commit gate
+
+When `$ARGUMENTS` contains `--staged`, this is the gate's review path:
+
+1. Resolve the staged UI files and their content hash:
+   `node "${CLAUDE_PLUGIN_ROOT}/hooks/hig-gate.mjs" --hash`
+   (prints `{"files":[…],"hash":"…"}`). If `files` is empty, report "no staged UI changes" and stop.
+2. Dispatch the **`design-reviewer`** subagent on exactly those files. It reviews and reports only —
+   it does not write the marker.
+3. Read the agent's final `HIG-VERDICT:` line. **Pass = `high=0`** (zero 🔴 high-severity findings).
+   Medium/low findings are shown to me but do not block.
+4. **On pass**, record approval so the commit can proceed:
+   `node "${CLAUDE_PLUGIN_ROOT}/hooks/hig-gate.mjs" --pass`
+   then tell me the commit is cleared. **On fail**, show the findings and write nothing — the commit
+   stays blocked until the issues are fixed, re-staged, and re-reviewed.
