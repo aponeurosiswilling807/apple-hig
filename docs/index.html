@@ -60,6 +60,17 @@
   .shot{margin:8px auto 0;max-width:980px}
   .shot img{width:100%;height:auto;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow)}
   .shot figcaption{color:var(--text2);font-size:14px;text-align:center;margin-top:14px}
+  /* before/after slider */
+  .ba{position:relative;max-width:880px;margin:8px auto 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);aspect-ratio:1600/1480;background:#0c0c0d;--pos:50%;touch-action:none}
+  .ba-base,.ba-top{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .ba-top{clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+  .ba-line{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;background:#fff;transform:translateX(-1px);pointer-events:none}
+  .ba-grip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:#fff;color:#1d1d1f;display:grid;place-items:center;font-size:18px;box-shadow:0 2px 10px rgba(0,0,0,.45)}
+  .ba-tag{position:absolute;top:12px;font-size:12px;font-weight:700;letter-spacing:.4px;padding:4px 11px;border-radius:11px;color:#fff;pointer-events:none}
+  .ba-tagB{left:12px;background:rgba(255,69,58,.9)}
+  .ba-tagA{right:12px;background:rgba(48,209,88,.9)}
+  .ba-range{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+  .ba-range:focus-visible + .ba-line .ba-grip{outline:3px solid var(--accent);outline-offset:2px}
 
   /* section */
   section.band{padding:72px 0}
@@ -129,8 +140,13 @@
   </section>
 
   <figure class="shot">
-    <img src="ears-comparison.png" alt="A real desktop app, EARS Bridge, before and after applying Apple's macOS HIG: dim low-contrast labels, a cramped layout, an alarming raw error and empty meters become semantic colors at 4.5:1+ contrast, a clear grouped hierarchy, a calm plain-language status banner, readable level meters, and an accent capsule action.">
-    <figcaption>The same desktop app — before, and after the plugin redesigned it to Apple's macOS HIG. &nbsp;<a href="prototype.html">Try the interactive redesign →</a></figcaption>
+    <div class="ba" style="--pos:50%">
+      <img class="ba-base" src="after.png" alt="EARS Bridge redesigned to Apple's macOS HIG: a config rail, calibration cards, a Start gated until ready, and labeled level meters.">
+      <img class="ba-top" src="before.png" alt="EARS Bridge before: dim low-contrast labels, a cramped layout, a raw error, and empty meters.">
+      <div class="ba-line"><div class="ba-grip">⟺</div></div>
+      <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
+    </div>
+    <figcaption>Drag the handle — the same desktop app, before and after the plugin redesigned it to Apple's macOS HIG. &nbsp;<a href="prototype.html">Open the interactive redesign →</a></figcaption>
   </figure>
 </div>
 
@@ -204,6 +220,12 @@ npx github:elevatormusic/apple-hig --tool cursor</pre>
       });
     });
   });
+  (function(){
+    var ba=document.querySelector('.ba'); if(!ba) return;
+    var r=ba.querySelector('.ba-range');
+    function upd(){ ba.style.setProperty('--pos', r.value + '%'); }
+    r.addEventListener('input', upd); upd();
+  })();
 </script>
 </body>
 </html>
