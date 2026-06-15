@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<style>
+  :root{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:#F5F5F7; padding:40px; width:1120px; }
+  .head{ margin:4px 8px 26px; }
+  .head h1{ font-size:30px; font-weight:700; color:#1D1D1F; letter-spacing:-0.3px; }
+  .head p{ font-size:15px; color:#6E6E73; margin-top:6px; }
+  .pill{ display:inline-block; font-size:13px; font-weight:700; letter-spacing:.4px; padding:5px 12px; border-radius:13px; margin:0 0 12px 4px; }
+  .pill.before{ background:#FDE7E7; color:#C0392B; border:1px solid #FF3B30; }
+  .pill.after{ background:#E4F8E7; color:#1E7B33; border:1px solid #34C759; }
+  .win{ width:1040px; border-radius:12px; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,.18); }
+  .chips{ margin:14px 4px 40px; display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{ font-size:12.5px; font-weight:600; padding:5px 11px; border-radius:9px; }
+  .chip.bad{ background:#FFF0F0; color:#C0392B; border:1px solid #F5C6C6; }
+  .chip.good{ background:#EAF8EC; color:#1E7B33; border:1px solid #BfE8C4; }
+
+  /* ---- window chrome ---- */
+  .bar{ height:38px; display:flex; align-items:center; padding:0 12px; font-size:13px; }
+  .bar .ico{ width:16px; height:16px; border-radius:4px; margin-right:8px; }
+  /* before chrome (Windows-ish, washed) */
+  .b .bar{ background:#2b2b2b; color:#cfcfcf; justify-content:flex-start; }
+  .b .winctl{ margin-left:auto; color:#9a9a9a; letter-spacing:6px; font-size:13px; }
+  /* after chrome (macOS unified) */
+  .a .bar{ background:#262628; color:#EBEBF5; border-bottom:1px solid rgba(255,255,255,.06); }
+  .a .traffic{ display:flex; gap:8px; margin-right:12px; }
+  .a .traffic i{ width:12px; height:12px; border-radius:50%; display:block; }
+
+  /* ================= BEFORE app body ================= */
+  .b .body{ background:#1a1a1a; padding:18px 20px 20px; color:#cfcfcf; }
+  .b .lbl{ font-size:11px; letter-spacing:.6px; color:#6f6f6f; margin:14px 0 6px; text-transform:uppercase; }
+  .b .lbl:first-child{ margin-top:0; }
+  .b .ddl{ background:#222; border:1px solid #2c2c2c; border-radius:5px; height:38px; display:flex; align-items:center; padding:0 12px; color:#cdcdcd; font-size:14px; }
+  .b .ddl .v{ margin-left:auto; color:#6a6a6a; }
+  .b .help{ font-size:12px; color:#5f5f5f; margin-top:6px; }
+  .b .warn{ font-size:12px; color:#c98a1e; margin-top:6px; }
+  .b .err{ font-size:12px; color:#c0392b; margin-top:6px; }
+  .b .cards{ display:flex; gap:14px; }
+  .b .card{ flex:1; background:#1d1d1d; border:1px solid #262626; border-radius:6px; padding:12px 14px; }
+  .b .card h3{ font-size:14px; color:#d8d8d8; font-weight:700; }
+  .b .card .sub{ font-size:11px; color:#5e5e5e; margin-top:3px; }
+  .b .card .axis{ font-size:10px; color:#5a5a5a; margin:10px 0 2px; }
+  .b .grid2{ display:flex; gap:18px; }
+  .b .grid2 > div{ flex:1; }
+  .b .meters{ display:flex; gap:10px; align-items:flex-end; margin-top:6px; }
+  .b .meter{ width:30px; height:120px; background:#161616; border:1px solid #242424; }
+  .b .mlab{ font-size:11px; color:#5e5e5e; }
+  .b .clean{ color:#2f8f4f; font-size:13px; margin-left:8px; }
+  .b .start{ margin-top:14px; display:flex; align-items:center; gap:12px; }
+  .b .start button{ background:#3a3a3a; color:#dcdcdc; border:1px solid #2a2a2a; border-radius:5px; height:40px; width:150px; font-size:15px; }
+  .b .start .estatus{ color:#c0392b; font-size:13px; }
+  .b .adv{ font-size:13px; color:#9a9a9a; margin-top:14px; }
+
+  /* ================= AFTER app body ================= */
+  .a .body{ background:#1C1C1E; padding:22px 24px 24px; color:#FFFFFF; }
+  .a .sec{ margin-top:20px; } .a .sec:first-child{ margin-top:0; }
+  .a .lbl{ font-size:12px; font-weight:600; letter-spacing:.2px; color:#98989F; margin-bottom:8px; }
+  .a .ddl{ background:#2C2C2E; border:1px solid #3A3A3C; border-radius:8px; height:40px; display:flex; align-items:center; padding:0 14px; color:#FFFFFF; font-size:14px; }
+  .a .ddl .v{ margin-left:auto; color:#8E8E93; }
+  .a .help{ font-size:13px; color:#AEAEB2; margin-top:7px; line-height:1.4; }
+  .a .cards{ display:flex; gap:16px; }
+  .a .card{ flex:1; background:#2C2C2E; border:1px solid #3A3A3C; border-radius:12px; padding:16px 18px; }
+  .a .card .top{ display:flex; align-items:center; justify-content:space-between; }
+  .a .card h3{ font-size:15px; font-weight:600; }
+  .a .card .badge{ font-size:11px; font-weight:600; color:#30D158; background:rgba(48,209,88,.15); padding:3px 8px; border-radius:7px; }
+  .a .card .sub{ font-size:12px; color:#8E8E93; margin-top:4px; }
+  .a .card .axis{ font-size:11px; color:#8E8E93; margin:12px 0 4px; }
+  .a .grid2{ display:flex; gap:18px; } .a .grid2 > div{ flex:1; }
+  /* calm, actionable status banner */
+  .a .status{ display:flex; gap:10px; align-items:flex-start; background:rgba(255,159,10,.12); border:1px solid rgba(255,159,10,.32); border-radius:10px; padding:11px 13px; margin-top:8px; }
+  .a .status .dot{ width:18px; height:18px; border-radius:50%; background:#FF9F0A; color:#1C1C1E; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  .a .status .t{ font-size:13px; color:#FFFFFF; line-height:1.45; }
+  .a .status .t b{ font-weight:600; }
+  .a .meters{ display:flex; gap:12px; align-items:flex-end; }
+  .a .meterwrap{ text-align:center; }
+  .a .meter{ width:34px; height:120px; background:#2C2C2E; border:1px solid #3A3A3C; border-radius:5px; position:relative; overflow:hidden; }
+  .a .meter .fill{ position:absolute; left:0; right:0; bottom:0; background:linear-gradient(#30D158,#34C759 70%,#FFD60A); border-radius:0 0 4px 4px; }
+  .a .mlab{ font-size:12px; color:#AEAEB2; margin-top:6px; }
+  .a .ok{ display:inline-flex; align-items:center; gap:7px; color:#30D158; font-size:14px; font-weight:600; }
+  .a .ok .c{ width:18px; height:18px; border-radius:50%; background:#30D158; color:#1C1C1E; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .a .start{ margin-top:18px; display:flex; align-items:center; gap:14px; }
+  .a .start button{ background:#0A84FF; color:#fff; border:none; border-radius:22px; height:44px; width:170px; font-size:16px; font-weight:600; }
+  .a .adv{ display:inline-flex; align-items:center; gap:9px; font-size:14px; color:#FFFFFF; margin-top:18px; }
+  .a .adv .sw{ width:38px; height:23px; border-radius:12px; background:#3A3A3C; position:relative; }
+  .a .adv .sw::after{ content:""; position:absolute; width:19px; height:19px; border-radius:50%; background:#fff; top:2px; left:2px; }
+  .curve{ display:block; }
+</style></head>
+<body>
+
+  <div class="head">
+    <h1>Designed with apple-hig</h1>
+    <p>A real desktop app (EARS Bridge) — the same screen before, and after applying Apple&#39;s Human Interface Guidelines (macOS).</p>
+  </div>
+
+  <!-- ===================== BEFORE ===================== -->
+  <span class="pill before">BEFORE</span>
+  <div class="win b">
+    <div class="bar"><span class="ico" style="background:#3a3a3a"></span>EARS Bridge<span class="winctl">&#9472; &#9633; &#10005;</span></div>
+    <div class="body">
+      <div class="lbl">Input (EARS)</div>
+      <div class="ddl">Hi-Fi Cable Output (VB-Audio Hi-Fi Cable)<span class="v">&#9662;</span></div>
+
+      <div class="cards" style="margin-top:14px">
+        <div class="card">
+          <h3>L_HPN_8604350.txt</h3><div class="sub">Serial 860-4350 · HPN</div>
+          <div class="axis">24 dB</div>
+          <svg class="curve" width="100%" height="64" viewBox="0 0 300 64" preserveAspectRatio="none"><polyline points="0,46 90,44 150,40 200,18 220,26 240,30 300,34" fill="none" stroke="#2f7fd0" stroke-width="2"/></svg>
+        </div>
+        <div class="card">
+          <h3>R_HPN_8604350.txt</h3><div class="sub">Serial 860-4350 · HPN</div>
+          <div class="axis">30 dB</div>
+          <svg class="curve" width="100%" height="64" viewBox="0 0 300 64" preserveAspectRatio="none"><polyline points="0,48 90,46 150,42 205,16 222,24 244,30 300,33" fill="none" stroke="#2f7fd0" stroke-width="2"/></svg>
+        </div>
+      </div>
+
+      <div class="lbl">Combine mode</div>
+      <div class="ddl">Two-pass: Left ear only&nbsp;&nbsp;[Recommended]<span class="v">&#9662;</span></div>
+      <div class="help">Two-pass single-ear mirrors miniDSP&#39;s official method: route Dirac playback to one earcup per pass.</div>
+
+      <div class="lbl">Output (virtual sink)</div>
+      <div class="ddl">Hi-Fi Cable Input (VB-Audio Hi-Fi Cable)&nbsp;&nbsp;(virtual)<span class="v">&#9662;</span></div>
+      <div class="help">In Dirac Live, pick this device&#39;s CAPTURE side as the Recording device.</div>
+      <div class="err">Start failed: Open input failed: Couldn&#39;t open the input device!</div>
+
+      <div class="grid2" style="margin-top:14px">
+        <div>
+          <div class="lbl">Sample rate</div>
+          <div class="ddl">48.0 kHz&nbsp;&nbsp;(resample)<span class="v">&#9662;</span></div>
+          <div class="warn">This rate is not native to the selected input - it will be resampled.</div>
+        </div>
+        <div>
+          <div class="lbl">Output bit depth</div>
+          <div class="ddl">24-bit<span class="v">&#9662;</span></div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px" class="meters">
+        <div><div class="mlab">L</div><div class="meter"></div></div>
+        <div><div class="mlab">R</div><div class="meter"></div></div>
+        <div><div class="mlab">OUT</div><div class="meter"></div></div>
+        <span class="clean">clean</span>
+      </div>
+
+      <div class="start"><button>Start</button><span class="estatus">Error</span></div>
+      <div class="adv">&#9744; Advanced</div>
+    </div>
+  </div>
+  <div class="chips">
+    <span class="chip bad">Dim ~2.7:1 labels &amp; helper text</span>
+    <span class="chip bad">No visual hierarchy</span>
+    <span class="chip bad">Raw, alarming error text</span>
+    <span class="chip bad">Unreadable empty meters</span>
+    <span class="chip bad">Flat, low-affordance controls</span>
+    <span class="chip bad">&#8220;Error&#8221; — color-only status</span>
+  </div>
+
+  <!-- ===================== AFTER ===================== -->
+  <span class="pill after">AFTER</span>
+  <div class="win a">
+    <div class="bar"><span class="traffic"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></span>EARS Bridge</div>
+    <div class="body">
+      <div class="sec">
+        <div class="lbl">Input (EARS)</div>
+        <div class="ddl">Hi-Fi Cable Output (VB-Audio Hi-Fi Cable)<span class="v">&#9662;</span></div>
+      </div>
+
+      <div class="sec cards">
+        <div class="card">
+          <div class="top"><h3>Left ear</h3><span class="badge">Loaded</span></div>
+          <div class="sub">L_HPN_8604350.txt · Serial 860-4350 · HPN · 24 dB</div>
+          <div class="axis">Headphone compensation</div>
+          <svg class="curve" width="100%" height="66" viewBox="0 0 300 66" preserveAspectRatio="none">
+            <line x1="0" y1="33" x2="300" y2="33" stroke="#3A3A3C" stroke-width="1"/>
+            <polyline points="0,46 90,44 150,40 200,18 220,26 240,30 300,34" fill="none" stroke="#0A84FF" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <div class="card">
+          <div class="top"><h3>Right ear</h3><span class="badge">Loaded</span></div>
+          <div class="sub">R_HPN_8604350.txt · Serial 860-4350 · HPN · 30 dB</div>
+          <div class="axis">Headphone compensation</div>
+          <svg class="curve" width="100%" height="66" viewBox="0 0 300 66" preserveAspectRatio="none">
+            <line x1="0" y1="33" x2="300" y2="33" stroke="#3A3A3C" stroke-width="1"/>
+            <polyline points="0,48 90,46 150,42 205,16 222,24 244,30 300,33" fill="none" stroke="#0A84FF" stroke-width="2.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="lbl">Combine mode</div>
+        <div class="ddl">Two-pass · Left ear only&nbsp;&nbsp;<span style="color:#30D158;font-weight:600">Recommended</span><span class="v">&#9662;</span></div>
+        <div class="help">Mirrors miniDSP&#39;s official method — routes Dirac playback to one earcup per pass.</div>
+      </div>
+
+      <div class="sec">
+        <div class="lbl">Output (virtual sink)</div>
+        <div class="ddl">Hi-Fi Cable Input (VB-Audio Hi-Fi Cable) · virtual<span class="v">&#9662;</span></div>
+        <div class="status">
+          <span class="dot">!</span>
+          <span class="t"><b>That input is in use.</b> Another app may be holding the EARS device. Close it, or choose a different input above, then start again. In Dirac Live, pick this device&#39;s Capture side as the Recording device.</span>
+        </div>
+      </div>
+
+      <div class="sec grid2">
+        <div>
+          <div class="lbl">Sample rate</div>
+          <div class="ddl">48.0 kHz<span class="v">&#9662;</span></div>
+          <div class="help">Resampled from the input&#39;s native rate. Pick 44.1 kHz to avoid resampling.</div>
+        </div>
+        <div>
+          <div class="lbl">Output bit depth</div>
+          <div class="ddl">24-bit<span class="v">&#9662;</span></div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="lbl">Levels</div>
+        <div class="meters">
+          <div class="meterwrap"><div class="meter"><div class="fill" style="height:54%"></div></div><div class="mlab">L</div></div>
+          <div class="meterwrap"><div class="meter"><div class="fill" style="height:48%"></div></div><div class="mlab">R</div></div>
+          <div class="meterwrap"><div class="meter"><div class="fill" style="height:51%"></div></div><div class="mlab">Out</div></div>
+          <span class="ok" style="margin-left:6px"><span class="c">&#10003;</span> No clipping</span>
+        </div>
+      </div>
+
+      <div class="start"><button>Start bridge</button></div>
+      <div class="adv"><span class="sw"></span> Advanced</div>
+    </div>
+  </div>
+  <div class="chips">
+    <span class="chip good">Semantic colors, 4.5:1+ contrast</span>
+    <span class="chip good">Clear hierarchy &amp; grouping</span>
+    <span class="chip good">Plain-language, actionable status</span>
+    <span class="chip good">Readable, labeled level meters</span>
+    <span class="chip good">Accent capsule primary action</span>
+    <span class="chip good">8-pt spacing rhythm</span>
+  </div>
+
+</body></html>
