@@ -6,6 +6,11 @@ value_type: exact-spec
 last_verified: 2026-06-14
 ---
 
+> 🔄 **Prefer live values when present.** If `~/.cache/apple-hig/live-tokens.json` exists and its
+> `schema` is `1`, use its `colors` and `typeRamp` instead of the tables below (they were resolved
+> from the user's own SDK and are more current). Everything else on this page stays authoritative.
+> Generate or refresh that cache with `/hig-sync` (macOS + Xcode only).
+
 # Design Tokens (consolidated, machine-readable)
 
 > 🔢 **exact-spec / version-dependent.** Single source for the `/hig-tokens` command. Values are

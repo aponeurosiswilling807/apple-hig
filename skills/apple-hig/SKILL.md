@@ -106,6 +106,9 @@ Generative AI, Machine learning, Mac Catalyst, etc. Load when integrating that s
 - **Want visual verification?** If the **Playwright MCP** is installed, after building or reviewing a
   UI, render it and screenshot it to confirm contrast, spacing, dark mode, and target sizes hold up at
   real pixels — not just in the code. (`/plugin install playwright@claude-plugins-official`)
+- **On macOS with Xcode, want exact current values?** Run `/hig-sync` to cache live colors + Dynamic
+  Type from the local SDK; tokens then prefer `~/.cache/apple-hig/live-tokens.json` over the bundled
+  set. Set `HIG_SDK_SYNC=always|never|ask` (default `ask`) to control prompting.
 
 ## Don't
 
