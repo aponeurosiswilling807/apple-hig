@@ -19,6 +19,10 @@ The "26" generation (Liquid Glass) reframes Apple's design values:
 - **Harmony** — Align with the **concentric design** of the hardware and software: a control's
   corner radius should be concentric with the container it sits in, which is concentric with the
   display's rounded corners. Nested radii share a common center. Match insets to the device.
+  Apple builds concentric layouts from **three shape types** — **fixed** (constant radius),
+  **capsule** (radius = half the height), and **concentric** (radius = parent radius − padding);
+  if a nested layout looks off, make its shape concentric so the system computes the inner radius.
+  (SwiftUI: `ConcentricRectangle`, `containerConcentric`.)
 - **Consistency** — Adopt platform conventions; design adapts continuously across window sizes,
   size classes, and displays rather than breaking at fixed breakpoints.
 
@@ -42,10 +46,12 @@ The "26" generation (Liquid Glass) reframes Apple's design values:
   size from the same layout.
 - Design **light and dark** together; neither is an afterthought.
 - Build in **accessibility** from the start (see [[accessibility]]), not as a retrofit.
+- **Request access in context** — ask permission for private data (location, camera, contacts,
+  photos) the moment a feature needs it, not at launch, and state why. See [[privacy]].
 
 ## Designing for each platform (one-line mandate)
 
-- **iOS** — Direct, touch-first, focused; one primary task per screen. See [[ios]].
+- **iOS** — Direct, touch-first, legible; focus on primary tasks and content by limiting onscreen controls. See [[ios]].
 - **iPadOS** — Flexible; scale iPhone patterns up with sidebars, multicolumn, multitasking. See [[ipados]].
 - **macOS** — Powerful, efficient, information-dense; menu bar + keyboard + pointer. See [[macos]].
 - **watchOS** — Glanceable, lightweight, complication-driven; interactions in seconds. See [[watchos]].

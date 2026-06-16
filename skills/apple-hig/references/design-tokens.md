@@ -56,6 +56,11 @@ last_verified: 2026-06-14
 
 Default tint/accent = `blue`.
 
+> **Reference only — don't hard-code.** Apple states the documented system-color values are intended
+> *for reference during design* and **may fluctuate from release to release**. Apply system colors
+> through the API (`Color` / `UIColor` / `NSColor`) so they adapt to appearance, contrast, and
+> vibrancy automatically; treat the hex above as a design aid, not a runtime constant. See [[color]].
+
 ## Type ramp — iOS Dynamic Type (default "Large")
 
 | style | weight | size_pt | leading_pt |
