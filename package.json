@@ -14,7 +14,8 @@
   ],
   "scripts": {
     "install-rules": "node scripts/install-rules.mjs",
-    "test": "node --test"
+    "test": "node --test",
+    "hig-sync": "node scripts/hig-sync.mjs"
   },
   "keywords": [
     "apple",

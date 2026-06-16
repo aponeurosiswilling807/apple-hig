@@ -231,6 +231,21 @@ invalidates the marker, so you can't review once and then change the code.
 - `HIG_GATE_BYPASS=1` — allow a single blocked commit (appended to a bypass log).
 - `HIG_GATE_EXT=".tsx,.css,…"` — override the UI file extensions that trigger the gate.
 
+## Live values from your SDK (macOS)
+
+The bundled token reference is portable but can drift between OS releases, and Apple ships no design
+data API. On **macOS with Xcode**, run `/hig-sync` (or `npm run hig-sync`) to read authoritative
+current **colors** and the **Dynamic Type ramp** from your own installed SDK via a small Mac Catalyst
+probe. Values are cached at `~/.cache/apple-hig/live-tokens.json`, and `/hig-tokens` plus HIG reviews
+then prefer the cache over the bundle. Everyone else keeps the bundled reference unchanged.
+
+- `HIG_SDK_SYNC=ask` (default) — offer to sync when values are needed and the cache is missing/stale.
+- `HIG_SDK_SYNC=always` — sync without asking. `HIG_SDK_SYNC=never` — never sync; always use the bundle.
+- `…/scripts/hig-sync.mjs --check <symbol> …` validates SF Symbol names against the installed set.
+
+Note: control-size minimums, spacing, and corner radii aren't exposed at runtime, so they stay
+bundled; Catalyst-resolved iOS values are very close but not a pure on-device render.
+
 ## Use it in other AI coding tools
 
 The full plugin experience — the auto-activating skill, the `design-reviewer` subagent, and the
