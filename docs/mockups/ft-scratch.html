@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Skytrace — Live flight tracker</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.30.0/dist/tabler-icons.min.css">
 <style>
   /* ---- Apple HIG design tokens (light → dark via prefers-color-scheme) ---- */
   :root {
@@ -240,7 +239,7 @@
   .searchpanel { position: absolute; top: 78px; left: 14px; right: 14px; z-index: 30; border-radius: var(--radius-chrome); padding: 8px; opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
   .searchpanel.open { opacity: 1; transform: none; pointer-events: auto; }
   .searchpanel-field { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 6px 0 12px; border-radius: var(--radius-field); background: var(--glass-fill); }
-  .searchpanel-field > i { color: var(--on-glass-secondary); font-size: 1rem; }
+  .searchpanel-field > .ti-svg { color: var(--on-glass-secondary); font-size: 1rem; }
   .searchpanel-field input { flex: 1; min-width: 0; border: none; background: none; color: var(--on-glass); font: inherit; font-size: var(--subhead); outline: none; }
   .searchpanel-field input::placeholder { color: var(--on-glass-secondary); }
   .searchpanel-close { border: none; background: none; color: var(--blue-d); font: inherit; font-size: var(--subhead); font-weight: 600; cursor: pointer; padding: 6px 10px; min-height: 44px; }
@@ -286,6 +285,7 @@
   @media (max-width: 560px) {
     .flightcard { max-width: 78%; }
   }
+  .ti-svg{display:inline-block;vertical-align:-0.125em;flex-shrink:0;}
 </style>
 </head>
 <body>
@@ -298,10 +298,10 @@
       <span class="light" style="background:#FEBC2E" aria-hidden="true"></span>
       <span class="light" style="background:#28C840" aria-hidden="true"></span>
       <div class="addrbar">
-        <i class="ti ti-lock" aria-hidden="true" style="font-size:0.8125rem;color:var(--label-tertiary)"></i>
+        <svg class="ti-svg" aria-hidden="true" style="font-size:0.8125rem;color:var(--label-tertiary)" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" /> <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /> <path d="M8 11v-4a4 4 0 1 1 8 0v4" /></svg>
         <span>skytrace.app/flights/<strong>UA482</strong></span>
       </div>
-      <i class="ti ti-refresh" aria-hidden="true" style="font-size:1rem;color:var(--label-tertiary)"></i>
+      <svg class="ti-svg" aria-hidden="true" style="font-size:1rem;color:var(--label-tertiary)" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" /> <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" /></svg>
     </div>
 
     <div class="viewport">
@@ -322,19 +322,19 @@
       </svg>
 
       <nav class="navbar glass" aria-label="Primary">
-        <span class="brandmark" aria-hidden="true"><i class="ti ti-plane-tilt"></i></span>
+        <span class="brandmark" aria-hidden="true"><svg class="ti-svg" aria-hidden="true" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5l3 -2.9a2.05 2.05 0 0 1 2.9 2.9l-2.9 3l2.5 7.5l-2.5 2.55l-3.5 -6.55l-3 3v3l-2 2l-1.5 -4.5l-4.5 -1.5l2 -2h3l3 -3l-6.5 -3.5l2.5 -2.5l7.5 2.5z" /></svg></span>
         <span class="wordmark">Skytrace</span>
         <button class="searchfield" type="button" data-search-open="#sky-search" aria-label="Search flights, airports, and routes">
-          <i class="ti ti-search" aria-hidden="true" style="font-size:0.9375rem"></i>
+          <svg class="ti-svg" aria-hidden="true" style="font-size:0.9375rem" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /> <path d="M21 21l-6 -6" /></svg>
           <span>Search flights, airports, routes</span>
         </button>
-        <button class="iconbtn" type="button" data-toast="No new alerts right now" aria-label="Notifications"><i class="ti ti-bell" aria-hidden="true"></i></button>
+        <button class="iconbtn" type="button" data-toast="No new alerts right now" aria-label="Notifications"><svg class="ti-svg" aria-hidden="true" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /> <path d="M9 17v1a3 3 0 0 0 6 0v-1" /></svg></button>
         <button class="iconbtn avatar" type="button" data-toast="Signed in as Alex W." aria-label="Your account">AW</button>
       </nav>
 
       <div class="searchpanel glass" id="sky-search" data-search-panel hidden aria-label="Search flights">
         <div class="searchpanel-field">
-          <i class="ti ti-search" aria-hidden="true"></i>
+          <svg class="ti-svg" aria-hidden="true" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /> <path d="M21 21l-6 -6" /></svg>
           <input type="search" data-search-input placeholder="Search flights, airports, routes" aria-label="Search flights, airports, routes">
           <button type="button" class="searchpanel-close" data-search-close aria-label="Close search">Cancel</button>
         </div>
@@ -349,7 +349,7 @@
       <section class="flightcard glass" aria-label="Flight UA 482 status">
         <div class="row">
           <span class="flightno">UA 482</span>
-          <span class="status"><i class="ti ti-circle-check" aria-hidden="true" style="font-size:0.875rem"></i>On time</span>
+          <span class="status"><svg class="ti-svg" aria-hidden="true" style="font-size:0.875rem" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /> <path d="M9 12l2 2l4 -4" /></svg>On time</span>
         </div>
         <div class="route">San Francisco → Tokyo</div>
         <div class="aircraft">United · Boeing 777-300ER</div>
@@ -357,11 +357,11 @@
       </section>
 
       <div class="mapctl glass" role="group" aria-label="Map controls">
-        <button type="button" data-toast="Zoomed in" aria-label="Zoom in"><i class="ti ti-plus" aria-hidden="true"></i></button>
+        <button type="button" data-toast="Zoomed in" aria-label="Zoom in"><svg class="ti-svg" aria-hidden="true" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5l0 14" /> <path d="M5 12l14 0" /></svg></button>
         <span class="div" aria-hidden="true"></span>
-        <button type="button" class="locate" data-toast="Centered on UA 482" aria-label="Center on aircraft"><i class="ti ti-current-location" aria-hidden="true"></i></button>
+        <button type="button" class="locate" data-toast="Centered on UA 482" aria-label="Center on aircraft"><svg class="ti-svg" aria-hidden="true" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /> <path d="M12 12m-8 0a8 8 0 1 0 16 0a8 8 0 1 0 -16 0" /> <path d="M12 2l0 2" /> <path d="M12 20l0 2" /> <path d="M20 12l2 0" /> <path d="M2 12l2 0" /></svg></button>
         <span class="div" aria-hidden="true"></span>
-        <button type="button" data-toast="Zoomed out" aria-label="Zoom out"><i class="ti ti-minus" aria-hidden="true"></i></button>
+        <button type="button" data-toast="Zoomed out" aria-label="Zoom out"><svg class="ti-svg" aria-hidden="true" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /></svg></button>
       </div>
 
       <section class="strip glass" aria-label="Flight progress and live metrics">
@@ -377,19 +377,19 @@
 
         <div class="metrics">
           <div class="metric">
-            <div class="k"><i class="ti ti-arrow-up" aria-hidden="true" style="font-size:0.875rem"></i>Altitude</div>
+            <div class="k"><svg class="ti-svg" aria-hidden="true" style="font-size:0.875rem" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5l0 14" /> <path d="M18 11l-6 -6" /> <path d="M6 11l6 -6" /></svg>Altitude</div>
             <div class="v" data-count="38000" data-comma data-suffix=" ft">38,000 ft</div>
           </div>
           <div class="metric">
-            <div class="k"><i class="ti ti-gauge" aria-hidden="true" style="font-size:0.875rem"></i>Ground speed</div>
+            <div class="k"><svg class="ti-svg" aria-hidden="true" style="font-size:0.875rem" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /> <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /> <path d="M13.41 10.59l2.59 -2.59" /> <path d="M7 12a5 5 0 0 1 5 -5" /></svg>Ground speed</div>
             <div class="v" data-count="521" data-suffix=" mph">521 mph</div>
           </div>
           <div class="metric">
-            <div class="k"><i class="ti ti-clock" aria-hidden="true" style="font-size:0.875rem"></i>Time left</div>
+            <div class="k"><svg class="ti-svg" aria-hidden="true" style="font-size:0.875rem" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /> <path d="M12 7v5l3 3" /></svg>Time left</div>
             <div class="v">5h 12m</div>
           </div>
           <div class="metric">
-            <div class="k"><i class="ti ti-plane-arrival" aria-hidden="true" style="font-size:0.875rem"></i>Arrives</div>
+            <div class="k"><svg class="ti-svg" aria-hidden="true" style="font-size:0.875rem" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.157 11.81l4.83 1.295a2 2 0 1 1 -1.036 3.863l-14.489 -3.882l-1.345 -6.572l2.898 .776l1.414 2.45l2.898 .776l-.12 -7.279l2.898 .777l2.052 7.797z" /> <path d="M3 21h18" /></svg>Arrives</div>
             <div class="v">3:25 PM <small>JST</small></div>
           </div>
         </div>

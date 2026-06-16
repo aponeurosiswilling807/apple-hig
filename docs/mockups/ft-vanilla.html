@@ -4,10 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Flight tracker</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" rel="stylesheet" />
 <style>
   :root{
     --color-background-primary:#ffffff;
@@ -30,7 +26,7 @@
     --border-radius-md:8px;
     --border-radius-lg:12px;
     --border-radius-xl:16px;
-    --font-sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   }
   @media (prefers-color-scheme: dark){
     :root{
@@ -81,7 +77,7 @@
   .van-search{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:30;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);box-shadow:0 12px 30px rgba(0,0,0,0.18);padding:8px;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .18s,transform .18s;}
   .van-search.open{opacity:1;transform:none;pointer-events:auto;}
   .van-search-field{display:flex;align-items:center;gap:8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:8px 10px;}
-  .van-search-field i{color:var(--color-text-tertiary);font-size:16px;}
+  .van-search-field .ti-svg{color:var(--color-text-tertiary);font-size:16px;}
   .van-search-field input{flex:1;min-width:0;border:none;background:none;color:var(--color-text-primary);font:inherit;font-size:14px;outline:none;}
   .van-search-field input::placeholder{color:var(--color-text-tertiary);}
   .van-search-close{border:none;background:none;color:var(--color-text-info);font:inherit;font-size:14px;font-weight:500;cursor:pointer;padding:4px 8px;}
@@ -90,6 +86,7 @@
   .van-search-list button:hover{background:var(--color-background-secondary);}
   .van-search-list .si-code{font-weight:600;min-width:54px;}
   @media (prefers-reduced-motion:reduce){.van-search{transition:none;}}
+  .ti-svg{display:inline-block;vertical-align:-0.125em;flex-shrink:0;}
 </style>
 </head>
 <body>
@@ -100,13 +97,13 @@
 
   <div style="display:flex;align-items:center;gap:10px;position:relative;">
     <button type="button" class="van-searchbar" data-search-open="#van-search" aria-label="Search flights, routes, or airports">
-      <i class="ti ti-search" style="font-size:18px;color:var(--color-text-tertiary);" aria-hidden="true"></i>
+      <svg class="ti-svg" aria-hidden="true" style="font-size:18px;color:var(--color-text-tertiary);" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /> <path d="M21 21l-6 -6" /></svg>
       <span>Search flight, route, or airport</span>
     </button>
     <span class="ft-pill" style="background:var(--color-background-success);color:var(--color-text-success);"><span class="lp"></span>Live</span>
     <div class="van-search" id="van-search" data-search-panel hidden aria-label="Search flights">
       <div class="van-search-field">
-        <i class="ti ti-search" aria-hidden="true"></i>
+        <svg class="ti-svg" aria-hidden="true" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /> <path d="M21 21l-6 -6" /></svg>
         <input type="search" data-search-input placeholder="Search flight, route, or airport" aria-label="Search flight, route, or airport">
         <button type="button" class="van-search-close" data-search-close aria-label="Close search">Cancel</button>
       </div>
@@ -128,7 +125,7 @@
         <p style="font-size:12px;color:var(--color-text-secondary);margin:2px 0 0;">Boeing 737-900 · N68821 · Gate B27 → Terminal 4</p>
       </div>
       <div style="text-align:right;">
-        <span class="ft-pill" style="background:var(--color-background-success);color:var(--color-text-success);"><i class="ti ti-plane" style="font-size:14px;" aria-hidden="true"></i>In air</span>
+        <span class="ft-pill" style="background:var(--color-background-success);color:var(--color-text-success);"><svg class="ti-svg" aria-hidden="true" style="font-size:14px;" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z" /></svg>In air</span>
         <p style="font-size:12px;color:var(--color-text-success);margin:4px 0 0;">On time</p>
       </div>
     </div>
@@ -179,8 +176,8 @@
     </div>
 
     <div style="display:flex;gap:8px;">
-      <button class="btn" onclick="sendPrompt('Arrival alert set for UA 2402 landing at JFK')"><i class="ti ti-bell" style="font-size:16px;" aria-hidden="true"></i>Set arrival alert</button>
-      <button class="btn" onclick="sendPrompt('Opening full flight details for UA 2402')"><i class="ti ti-info-circle" style="font-size:16px;" aria-hidden="true"></i>Flight details</button>
+      <button class="btn" onclick="sendPrompt('Arrival alert set for UA 2402 landing at JFK')"><svg class="ti-svg" aria-hidden="true" style="font-size:16px;" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /> <path d="M9 17v1a3 3 0 0 0 6 0v-1" /></svg>Set arrival alert</button>
+      <button class="btn" onclick="sendPrompt('Opening full flight details for UA 2402')"><svg class="ti-svg" aria-hidden="true" style="font-size:16px;" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /> <path d="M12 9h.01" /> <path d="M11 12h1v4h1" /></svg>Flight details</button>
     </div>
 
   </div>
@@ -198,7 +195,7 @@
         <p style="font-size:12px;color:var(--color-text-secondary);margin:0;">Boarding now · gate A12 · dep 14:05</p>
       </div>
       <span class="ft-pill" style="background:var(--color-background-info);color:var(--color-text-info);">Boarding</span>
-      <i class="ti ti-chevron-right" style="font-size:18px;color:var(--color-text-tertiary);" aria-hidden="true"></i>
+      <svg class="ti-svg" aria-hidden="true" style="font-size:18px;color:var(--color-text-tertiary);" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6l-6 6" /></svg>
     </button>
 
     <button class="ft-row" onclick="sendPrompt('Opening BA 286 · San Francisco to London Heathrow')">
@@ -208,7 +205,7 @@
         <p style="font-size:12px;color:var(--color-text-secondary);margin:0;">Scheduled · dep 19:45 · gate G94</p>
       </div>
       <span class="ft-pill" style="background:var(--color-background-secondary);color:var(--color-text-secondary);">Scheduled</span>
-      <i class="ti ti-chevron-right" style="font-size:18px;color:var(--color-text-tertiary);" aria-hidden="true"></i>
+      <svg class="ti-svg" aria-hidden="true" style="font-size:18px;color:var(--color-text-tertiary);" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6l-6 6" /></svg>
     </button>
 
     <button class="ft-row" onclick="sendPrompt('Opening LH 441 · Frankfurt to Washington Dulles')">
@@ -218,7 +215,7 @@
         <p style="font-size:12px;color:var(--color-text-secondary);margin:0;">In air · delayed 35m · arr 18:20</p>
       </div>
       <span class="ft-pill" style="background:var(--color-background-warning);color:var(--color-text-warning);">Delayed</span>
-      <i class="ti ti-chevron-right" style="font-size:18px;color:var(--color-text-tertiary);" aria-hidden="true"></i>
+      <svg class="ti-svg" aria-hidden="true" style="font-size:18px;color:var(--color-text-tertiary);" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6l-6 6" /></svg>
     </button>
 
     <button class="ft-row" onclick="sendPrompt('Opening AA 100 · New York to London Heathrow')">
@@ -228,7 +225,7 @@
         <p style="font-size:12px;color:var(--color-text-secondary);margin:0;">Landed 06:52 · on time · gate T3-12</p>
       </div>
       <span class="ft-pill" style="background:var(--color-background-success);color:var(--color-text-success);">Landed</span>
-      <i class="ti ti-chevron-right" style="font-size:18px;color:var(--color-text-tertiary);" aria-hidden="true"></i>
+      <svg class="ti-svg" aria-hidden="true" style="font-size:18px;color:var(--color-text-tertiary);" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6l-6 6" /></svg>
     </button>
   </div>
 
