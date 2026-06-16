@@ -333,8 +333,10 @@ npx github:elevatormusic/apple-hig --tool cursor</pre>
     }
     // iframes load async — set their initial state once each is ready
     wraps.forEach(function(w){ var f = w.querySelector('iframe'); if (f) f.addEventListener('load', function(){ setPaused(w, document.hidden || !inView(w)); }); });
-    document.addEventListener('visibilitychange', refresh);
-    window.addEventListener('pageshow', refresh);
+    // on refocus, stay paused (opaque, no blur) for a beat so the page paints cheaply
+    // before the Liquid Glass blur layers rebuild — avoids the tab-switch stall
+    document.addEventListener('visibilitychange', function(){ document.hidden ? refresh() : setTimeout(refresh, 280); });
+    window.addEventListener('pageshow', function(){ setTimeout(refresh, 280); });
   })();
 </script>
 </body>

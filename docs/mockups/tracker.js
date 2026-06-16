@@ -192,8 +192,10 @@
     var st = document.createElement('style');
     st.textContent = 'html.fm-paused *, html.fm-paused *::before, html.fm-paused *::after{animation-play-state:paused!important}';
     (document.head || document.documentElement).appendChild(st);
-    // also self-pause when this document's tab is hidden
-    document.addEventListener('visibilitychange', function () {
+    // self-pause when this tab is hidden — but only when standing alone; when embedded
+    // (the demo iframes) the host page drives pausing with off-screen + settle logic
+    var embedded = window.top !== window.self;
+    if (!embedded) document.addEventListener('visibilitychange', function () {
       document.documentElement.classList.toggle('fm-paused', document.hidden);
     });
   }

@@ -112,10 +112,18 @@
 
   .glass {
     background: var(--glass);
-    -webkit-backdrop-filter: blur(22px) saturate(160%);
-    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    backdrop-filter: blur(16px) saturate(150%);
     border: 0.5px solid var(--glass-stroke);
     box-shadow: 0 10px 34px rgba(0,0,0,0.40);
+  }
+  /* When paused (scrolled off-screen or the tab is backgrounded) drop the blur to an
+     opaque surface. Firefox rebuilds backdrop-filter layers on tab refocus, which is
+     the multi-second hitch; with no live blur layers there is nothing to rebuild. */
+  html.fm-paused .glass {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: #161c26 !important;
   }
   /* Reduce Transparency: drop the blur, fall back to an opaque surface */
   @media (prefers-reduced-transparency: reduce) {
