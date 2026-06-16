@@ -61,11 +61,13 @@ every frame.
   `getPointAtLength`/`getBBox` — flushes pending layout *that frame*; doing it every frame turns the
   loop into a per-frame reflow ("layout thrashing"). Read once up front (or batch all reads before
   writes); e.g. sample a path's points once and interpolate, rather than querying geometry per frame.
-- **Text shaping is expensive, and a reflow re-shapes the visible text.** On Windows (DirectWrite),
-  fonts with large ligature / `GSUB` tables can make shaping pathologically slow — enough to **freeze
-  the page** during a reflow-heavy moment (scroll, a counting number). For UI text that needs no
-  ligatures, set `font-variant-ligatures: none`, and prefer **SVG icons** over icon webfonts (which
-  ship thousands of glyphs and large lookup tables). See [[typography]].
+- **Fonts with big feature tables are slow — to *shape* and to *load*.** On Windows (DirectWrite), a
+  font with large ligature / `GSUB` coverage is slow both when shaping text (a reflow re-shapes the
+  visible text) **and** when the engine first **creates the font face** (it reads the whole feature
+  coverage) — either can **freeze the page** (e.g. on scroll). `font-variant-ligatures: none` removes
+  the *shaping* cost but **not** the face-creation cost, so it can't rescue a heavy webfont. The real
+  fix is to **not ship the heavy webfont**: use **SVG icons** instead of an icon webfont (they carry
+  thousands of glyphs + large tables), and keep text on system fonts where you can. See [[typography]].
 - **Pause continuous animation when it isn't visible.** A persistent/decorative loop keeps repainting
   even when its element is scrolled off-screen or the tab/app is backgrounded — wasting CPU/GPU and
   battery, and it can hitch on refocus. On the web, pause via an `IntersectionObserver` (off-screen)

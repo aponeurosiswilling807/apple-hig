@@ -152,7 +152,7 @@ claude plugin marketplace remove apple-hig
 `claude plugin details apple-hig` reports the component inventory and its projected token cost:
 
 ```text
-Apple HIG (apple-hig) 1.4.0
+Apple HIG (apple-hig) 1.4.1
 Component inventory
   Skills (5)  apple-hig, hig-review, hig-scaffold, hig-sync, hig-tokens
   Agents (1)  design-reviewer
