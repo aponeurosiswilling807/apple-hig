@@ -93,8 +93,8 @@ actually be rendered**:
 Also note, where relevant: safe-area violations, RTL hardcoding (left/right vs leading/trailing),
 permission requests without context, SF Symbols used in app icons/logos (license violation), and a
 **heavy icon webfont** (e.g. a full icon-font CSS) where a handful of icons are used — prefer **SVG
-icons** (large webfonts are slow to create a font face from on some platforms; `font-variant-ligatures`
-won't fix that). Source: motion.md.
+icons**, or a self-hosted `GSUB`/`GPOS`-stripped subset (large webfonts are slow to create a font face
+from on some platforms; `font-variant-ligatures` won't fix that). Source: motion.md.
 - **SF Symbol availability (macOS):** if the code names SF Symbols, you may verify they exist in the
   user's installed set with `node "${CLAUDE_PLUGIN_ROOT}/scripts/hig-sync.mjs" --check <name> …`
   (returns `{name: bool}`); flag any that come back `false` as unavailable in the installed SF Symbols.

@@ -21,7 +21,8 @@ project, consult it for exact, sourced values and load only the files relevant t
   properties (`box-shadow`, `width`, `clip`) or read layout (`getBoundingClientRect`, `getPointAtLength`)
   in the loop; avoid animating expensive `filter`/`backdrop-filter` blur; pause continuous animation
   when it's off-screen or the tab/app is backgrounded. Disable ligatures on UI text that doesn't need
-  them (`font-variant-ligatures: none`) and prefer SVG icons over icon webfonts.
+  them (`font-variant-ligatures: none`) and prefer SVG icons over icon webfonts (or self-host a
+  `GSUB`/`GPOS`-stripped subset — a full icon font's ligature table is slow for the OS to parse).
 - **On-grid spacing** (4/8 pt rhythm); respect **safe areas**; use **leading/trailing** (RTL-safe),
   not left/right.
 - **Licensing:** do not bundle or redistribute Apple's SF fonts, SF Symbols, or templates — link to

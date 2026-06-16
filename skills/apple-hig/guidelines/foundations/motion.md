@@ -67,7 +67,10 @@ every frame.
   coverage) — either can **freeze the page** (e.g. on scroll). `font-variant-ligatures: none` removes
   the *shaping* cost but **not** the face-creation cost, so it can't rescue a heavy webfont. The real
   fix is to **not ship the heavy webfont**: use **SVG icons** instead of an icon webfont (they carry
-  thousands of glyphs + large tables), and keep text on system fonts where you can. See [[typography]].
+  thousands of glyphs + large tables), and keep text on system fonts where you can. If you must keep an
+  icon font, **self-host a subset with the OpenType layout tables (`GSUB`/`GPOS`) stripped** — the icons
+  render from Private-Use codepoints, so the ligature table is dead weight (`pyftsubset font.woff2
+  --unicodes='*' --drop-tables+=GSUB,GPOS,GDEF --flavor=woff2`, often ~800 KB → a few KB). See [[typography]].
 - **Pause continuous animation when it isn't visible.** A persistent/decorative loop keeps repainting
   even when its element is scrolled off-screen or the tab/app is backgrounded — wasting CPU/GPU and
   battery, and it can hitch on refocus. On the web, pause via an `IntersectionObserver` (off-screen)
