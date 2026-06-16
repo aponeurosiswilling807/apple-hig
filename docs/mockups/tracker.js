@@ -50,12 +50,10 @@
       }
       place(0);
       if ('IntersectionObserver' in window) {
-        new IntersectionObserver(function (ents) {
-          ents.forEach(function (en) {
-            if (en.isIntersecting) fly();
-            else if (!flying) place(0);          // reset so it replays next time in view
-          });
-        }, { threshold: 0.25 }).observe(svg);
+        var io = new IntersectionObserver(function (ents) {
+          ents.forEach(function (en) { if (en.isIntersecting) { fly(); io.unobserve(svg); } });   // one-shot
+        }, { threshold: 0.25 });
+        io.observe(svg);
       } else { fly(); }
     });
   }
@@ -188,7 +186,19 @@
     });
   }
 
-  function init() { initMaps(); initCounts(); initSearch(); initToasts(); }
+  // lets a host page (or this doc, when backgrounded) freeze all animation cheaply —
+  // a paused CSS animation stops ticking, so backdrop-filter layers stop recompositing
+  function injectPauseHook() {
+    var st = document.createElement('style');
+    st.textContent = 'html.fm-paused *, html.fm-paused *::before, html.fm-paused *::after{animation-play-state:paused!important}';
+    (document.head || document.documentElement).appendChild(st);
+    // also self-pause when this document's tab is hidden
+    document.addEventListener('visibilitychange', function () {
+      document.documentElement.classList.toggle('fm-paused', document.hidden);
+    });
+  }
+
+  function init() { injectPauseHook(); initMaps(); initCounts(); initSearch(); initToasts(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();

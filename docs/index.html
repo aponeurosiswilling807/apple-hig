@@ -40,7 +40,7 @@
   .btn .btn-chev{font-size:15px;line-height:1}
   .demo-cta{text-align:center;margin-top:24px}
   .demo-eyebrow{text-align:center;color:var(--accent);font-weight:600;font-size:15px;letter-spacing:.2px}
-  .demo-stage{position:relative;max-width:960px;margin:40px auto 0;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);background:#0c0c0d}
+  .demo-stage{position:relative;max-width:960px;margin:40px auto 0;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);background:#0c0c0d;content-visibility:auto;contain-intrinsic-size:auto 600px}
   .demo-stage::before{content:"";position:absolute;inset:0;border-radius:16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);pointer-events:none;z-index:1}
   .demo-iframe{display:block;width:100%;height:600px;border:0;background:#0c0c0d}
   @media(max-width:640px){.demo-iframe{height:560px}}
@@ -85,7 +85,7 @@
   .ftcap .name.f{color:var(--accent)}
   .ftcap .note{font-size:13px;color:var(--text2);background:none;border:0;border-radius:0;padding:0;margin:0;display:inline}
   .ftcap .note::before{content:"·";margin-right:6px}
-  .liveframe{position:relative;width:100%;aspect-ratio:720/1140;overflow:hidden;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow);background:#0c0c0d}
+  .liveframe{position:relative;width:100%;aspect-ratio:720/1140;overflow:hidden;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow);background:#0c0c0d;content-visibility:auto}
   .liveframe iframe{position:absolute;top:0;left:0;width:720px;height:1140px;border:0;transform-origin:top left;background:#0c0c0d}
   @media(max-width:680px){ .ftgal{grid-template-columns:1fr} }
 
@@ -307,6 +307,34 @@ npx github:elevatormusic/apple-hig --tool cursor</pre>
     window.addEventListener('resize', fit);
     window.addEventListener('load', fit);
     if (document.readyState !== 'loading') fit(); else document.addEventListener('DOMContentLoaded', fit);
+  })();
+
+  // Pause a live mockup's animations whenever its iframe is off-screen or the tab is
+  // hidden. The mockups composite backdrop-filter (Liquid Glass) and run looping
+  // animations; left running while backgrounded they make Firefox hitch on tab refocus.
+  // Pausing stops the CSS animations ticking, so nothing recomposites until it's seen.
+  (function(){
+    // observe the WRAPPERS (clean layout boxes), not the transform-scaled iframes
+    var wraps = [].slice.call(document.querySelectorAll('.liveframe, .demo-stage'));
+    if (!wraps.length) return;
+    function setPaused(wrap, paused){
+      var f = wrap.querySelector('iframe'); if (!f) return;
+      try { var d = f.contentDocument; if (d && d.documentElement) d.documentElement.classList.toggle('fm-paused', paused); } catch(e){}
+    }
+    function inView(el){ var r = el.getBoundingClientRect(); return r.bottom > -150 && r.top < (window.innerHeight || document.documentElement.clientHeight) + 150; }
+    function refresh(){ var hidden = document.hidden; wraps.forEach(function(w){ setPaused(w, hidden || !inView(w)); }); }
+    if ('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(ents){
+        ents.forEach(function(en){ setPaused(en.target, document.hidden || !en.isIntersecting); });
+      }, { rootMargin: '150px' });
+      wraps.forEach(function(w){ io.observe(w); });
+    } else {
+      window.addEventListener('scroll', refresh, { passive: true });
+    }
+    // iframes load async — set their initial state once each is ready
+    wraps.forEach(function(w){ var f = w.querySelector('iframe'); if (f) f.addEventListener('load', function(){ setPaused(w, document.hidden || !inView(w)); }); });
+    document.addEventListener('visibilitychange', refresh);
+    window.addEventListener('pageshow', refresh);
   })();
 </script>
 </body>
