@@ -285,9 +285,18 @@
           <line x1="0" y1="126" x2="1000" y2="126"/><line x1="0" y1="253" x2="1000" y2="253"/><line x1="0" y1="380" x2="1000" y2="380"/>
           <line x1="200" y1="0" x2="200" y2="506"/><line x1="400" y1="0" x2="400" y2="506"/><line x1="600" y1="0" x2="600" y2="506"/><line x1="800" y1="0" x2="800" y2="506"/>
         </g>
-        <path d="M-20 232 L120 224 L178 296 L156 372 L96 460 L-20 472 Z" fill="var(--map-land)"/>
-        <path d="M700 70 L1010 52 L1030 316 L872 360 L760 300 L720 196 Z" fill="var(--map-land)"/>
-        <path d="M804 214 L848 196 L872 250 L856 304 L812 292 Z" fill="var(--map-land-2)"/>
+        <!-- North America: Pacific coast, SFO sits on the California shore -->
+        <path d="M-30 -30 L40 -30 C95 -10 128 20 132 70 C150 120 145 165 134 198 C158 215 168 228 150 300 C172 342 188 366 208 390 C230 412 246 436 250 466 C252 492 250 520 240 540 L-30 540 Z" fill="var(--map-land)"/>
+        <!-- Mainland Asia: Kamchatka / Korea / China coast on the far side of the Pacific -->
+        <path d="M1030 -30 L955 -30 C930 10 915 60 920 105 C895 130 905 150 948 170 C925 200 918 230 922 262 C928 300 955 345 985 400 C1002 435 1014 490 1016 540 L1030 540 Z" fill="var(--map-land)"/>
+        <!-- Japan: Honshu (HND on its Pacific coast), Hokkaido, Kyushu -->
+        <path d="M880 180 Q852 216 835 250 Q815 282 793 314 Q801 320 810 314 Q830 284 848 250 Q868 214 894 182 Q888 176 880 180 Z" fill="var(--map-land-2)"/>
+        <path d="M884 140 Q903 132 918 144 Q923 160 908 168 Q888 166 884 152 Z" fill="var(--map-land-2)"/>
+        <path d="M768 322 Q786 320 793 334 Q788 350 772 346 Q760 336 768 322 Z" fill="var(--map-land-2)"/>
+        <!-- Aleutian arc tracing the great-circle route across the North Pacific -->
+        <g fill="var(--map-land-2)" opacity="0.85">
+          <ellipse cx="318" cy="92" rx="9" ry="3.4"/><ellipse cx="392" cy="74" rx="8" ry="3.2"/><ellipse cx="470" cy="64" rx="7" ry="3"/><ellipse cx="556" cy="62" rx="6.5" ry="3"/><ellipse cx="640" cy="70" rx="7" ry="3.2"/><ellipse cx="716" cy="86" rx="8" ry="3.4"/>
+        </g>
         <path d="M150,300 C360,72 650,72 835,248" fill="none" stroke="var(--map-route-pending)" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 9"/>
         <path d="M150,300 C360,72 650,72 835,248" fill="none" stroke="var(--blue-d)" stroke-width="3.5" stroke-linecap="round" pathLength="100" stroke-dasharray="55 100"/>
         <circle cx="150" cy="300" r="6.5" fill="var(--map)" stroke="var(--blue-d)" stroke-width="3"/>
