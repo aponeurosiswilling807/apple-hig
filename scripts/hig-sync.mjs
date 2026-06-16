@@ -70,7 +70,11 @@ function compileProbe() {
   const out = mkdtempSync(join(tmpdir(), 'hig-probe-'));
   const bin = join(out, 'probe');
   const src = join(here(), 'sdk-probe', 'probe.swift');
-  execFileSync('xcrun', ['swiftc', '-sdk', sdk, '-target', target, src, '-o', bin], { stdio: ['ignore', 'pipe', 'pipe'] });
+  // Mac Catalyst's UIKit lives under the SDK's iOSSupport overlay; a raw swiftc
+  // invocation doesn't add it automatically, so canImport(UIKit) would be false.
+  const ios = join(sdk, 'System', 'iOSSupport', 'System', 'Library', 'Frameworks');
+  execFileSync('xcrun', ['swiftc', '-sdk', sdk, '-target', target, '-Fsystem', ios, src, '-o', bin],
+    { stdio: ['ignore', 'pipe', 'pipe'] });
   return bin;
 }
 export function runProbe(extraArgs = []) {
