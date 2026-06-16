@@ -6,7 +6,7 @@ A Claude Code plugin that makes Claude design and review user interfaces accordi
 Interface Guidelines (HIG), automatically choosing the correct platform scope — iOS, iPadOS, macOS,
 watchOS, tvOS, or visionOS — for whatever is being built.
 
-![One flight tracker, three ways. Top left, vanilla Claude Code: an abstract grid stands in for the map, two identical outline buttons give no clear primary action, and status pills are flat gray. Top right, the same app after the apple-hig plugin reviews it: a real labeled map, one prominent capsule action, semantic color-coded status pills, and a clear title and hierarchy. Bottom, Skytrace, a tracker designed to Apple's HIG from scratch with the plugin: Liquid Glass chrome floating over a dark map content layer with labeled live metrics.](docs/flight-compare.png)
+![One flight tracker, three ways. Top left, vanilla Claude Code: a plain flat US map, two identical outline buttons with no clear primary action, and flat gray status pills. Top right, the same app after the apple-hig plugin reviews it: the same real US map with one prominent capsule action, semantic color-coded status pills, and a clearer title and hierarchy. Bottom, Skytrace, a tracker designed to Apple's HIG from scratch with the plugin: Liquid Glass chrome floating over a real North-Pacific map showing the San Francisco to Tokyo great-circle route, with labeled live metrics.](docs/flight-compare.png)
 
 **Website:** <https://elevatormusic.github.io/apple-hig/>  ·  **Try the build live:** [Skytrace](https://elevatormusic.github.io/apple-hig/mockups/ft-scratch.html)  ·  *(all three above were made with Claude Code — only the right/bottom used the plugin)*
 
@@ -99,11 +99,15 @@ spaces, and ornaments, with eyes-and-hands input.
   spacing, low contrast, non-standard radii, motion that ignores Reduce Motion, and more.
 - **Commands**
   - `/hig-review [path]` — run the design-reviewer on the current file/selection or a path.
-  - `/hig-scaffold <platform> <component/screen> [stack]` — generate a HIG-compliant component/screen.
+  - `/hig-scaffold <platform> <component/screen> [stack]` — generate a HIG-compliant component or
+    screen, including a real Apple Maps view (MapKit JS for web, SwiftUI `Map` for native).
   - `/hig-tokens <css|tailwind|json|swiftui|react-native>` — emit the design tokens (colors, type ramp,
     spacing, radii, control sizes) in the requested format.
-- **Optional non-blocking hook** — a gentle reminder after edits to consider `/hig-review`. Delete
-  `hooks/hooks.json` if you don't want it.
+  - `/hig-sync` — on macOS + Xcode, read live colors and the Dynamic Type ramp from your installed SDK
+    (see [Live values from your SDK](#live-values-from-your-sdk-macos)).
+- **Commit gate (hook)** — a PreToolUse hook blocks a Claude-run `git commit` that stages UI files
+  until a HIG review passes; see [Mandatory review gate](#mandatory-review-gate). Turn it off with
+  `HIG_GATE=off` or by deleting `hooks/hooks.json`.
 
 ## Coverage
 
@@ -147,20 +151,21 @@ claude plugin marketplace remove apple-hig
 `claude plugin details apple-hig` reports the component inventory and its projected token cost:
 
 ```text
-Apple HIG (apple-hig) 1.0.0
+Apple HIG (apple-hig) 1.3.0
 Component inventory
-  Skills (4)  apple-hig, hig-review, hig-scaffold, hig-tokens
+  Skills (5)  apple-hig, hig-review, hig-scaffold, hig-sync, hig-tokens
   Agents (1)  design-reviewer
-  Hooks  (1)  PostToolUse  (harness-only — no model context cost)
+  Hooks  (2)  SessionStart, PreToolUse (commit gate)  (harness-only — no model context cost)
   MCP servers (0) · LSP servers (0)
 
 Projected token cost
-  Always-on: ~434 tok added to every session
+  Always-on: ~480 tok added to every session
   component        always-on  on-invoke
   apple-hig             ~180      ~2.5k
   design-reviewer       ~120      ~1.6k
   hig-review             ~50       ~390
   hig-scaffold           ~50       ~540
+  hig-sync               ~45       ~600
   hig-tokens             ~40      ~1.2k
 ```
 
@@ -312,8 +317,12 @@ apple-hig/
 │   ├── guidelines/            # foundations, platforms, components, patterns, inputs, technologies
 │   └── references/design-tokens.md
 ├── agents/design-reviewer.md
-├── commands/                  # hig-review, hig-scaffold, hig-tokens
-├── hooks/hooks.json           # optional reminder
+├── commands/                  # hig-review, hig-scaffold, hig-sync, hig-tokens
+├── hooks/                     # hooks.json + hig-gate.mjs (the commit gate)
+├── scripts/                   # install-rules.mjs, hig-sync.mjs, sdk-probe/ (Mac Catalyst)
+├── integrations/apple-hig.md  # canonical ruleset for other AI coding tools
+├── docs/                      # GitHub Pages site (the comparison + live demo)
+├── package.json
 ├── README.md
 └── LICENSE
 ```
